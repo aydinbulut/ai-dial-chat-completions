@@ -1,6 +1,7 @@
 import asyncio
 
 from task.clients.client import DialClient
+from task.clients.custom_client import DialClient as CustomDialClient
 from task.constants import DEFAULT_SYSTEM_PROMPT
 from task.models.conversation import Conversation
 from task.models.message import Message
@@ -18,10 +19,10 @@ async def start(stream: bool) -> None:
 
     # 1.2. Create CustomDialClient
 
-    custom_dial_client = DialClient(deployment_name="gpt-4")
+    custom_dial_client = CustomDialClient(deployment_name="gpt-4")
 
     # set client
-    client = dial_client
+    client = custom_dial_client
 
     # 2. Create Conversation object
 
@@ -70,5 +71,5 @@ async def start(stream: bool) -> None:
         conversation.add_message(Message(role=Role.AI, content=response.content))
 
 asyncio.run(
-    start(True)
+    start(False)
 )
